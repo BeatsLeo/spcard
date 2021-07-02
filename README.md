@@ -1,2 +1,2 @@
 # spcard
-A Repository that for programming training.
+编程实训的文档.
