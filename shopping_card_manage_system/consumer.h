@@ -7,8 +7,8 @@ typedef struct {
 	char name_[10];	//姓名
 	char password_[6];	//密码
 	char id_[18];	//身份证
-	float balance_;	//余额
-	int score_;	//积分
+	float balance_ = 0;	//余额
+	int score_ = 0;	//积分
 	bool is_available_;	//激活状态
 
 	Consumer_Node* next_ = NULL;	//下一个指针
@@ -20,8 +20,8 @@ typedef struct {
 	char name_[10];	//姓名
 	char password_[6];	//密码
 	char id_[18];	//身份证
-	float balance_;	//余额
-	int score_;	//积分
+	float balance_ = 0;	//余额
+	int score_ = 0;	//积分
 	bool is_available_;	//激活状态
 }Consumer;
 
