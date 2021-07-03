@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="consumer.h" />
+    <ClInclude Include="dofile.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="administor.h" />
   </ItemGroup>
