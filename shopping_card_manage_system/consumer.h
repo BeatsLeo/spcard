@@ -14,6 +14,7 @@ typedef struct {
 	Consumer_Node* next_ = NULL;	//下一个指针
 }Consumer_Node;
 
+
 //某一用户的信息
 typedef struct {
 	int number_;	//卡号
@@ -21,7 +22,7 @@ typedef struct {
 	char password_[6];	//密码
 	char id_[18];	//身份证
 	float balance_ = 0;	//余额
-	int score_ = 0;	//积分
+	float score_ = 0;	//积分
 	bool is_available_;	//激活状态
 }Consumer;
 
