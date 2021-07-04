@@ -18,7 +18,7 @@
     <ClInclude Include="menu.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="administor.h">
+    <ClInclude Include="administer.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="consumer.h">
@@ -27,5 +27,13 @@
     <ClInclude Include="dofile.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dofile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

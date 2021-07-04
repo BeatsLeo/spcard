@@ -22,7 +22,11 @@
     <ClInclude Include="consumer.h" />
     <ClInclude Include="dofile.h" />
     <ClInclude Include="menu.h" />
-    <ClInclude Include="administor.h" />
+    <ClInclude Include="administer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dofile.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
