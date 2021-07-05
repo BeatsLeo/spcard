@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include"consumer.h"
 
+
 void BuyBySave(struct Consumer consumer)  
 {
 	
@@ -9,7 +10,7 @@ void BuyBySave(struct Consumer consumer)
 		printf("您的卡没有激活，请先进行激活操作！\n");        //是否激活 
 	}
 	
-	while(consumer.is_available_==1)
+	else
 	{
 		int what,which=1,number,flag,flag1,flag2;
 		float total=0,price,pri[9]={3,50,100,80,5,10,6000,50,7};
@@ -95,8 +96,7 @@ void BuyBySave(struct Consumer consumer)
 		else
 		{
 			printf("退出购买\n");
-		}
-		break;	
+		}	
 	}
 }
 
@@ -105,13 +105,14 @@ void MinusSave(struct Consumer consumer, float balance)
 	if(consumer.balance_<balance)
 	{
 		printf("购买无法完成，余额不足，请进行充值!\n");
+		printf("您的余额为%.2f元,所需金额为%.2f元\n",consumer.balance_,balance);
 	}
 	else
 	{
 		consumer.balance_ -= balance;
 		consumer.score_ += 0.3 * balance;
 		printf("已完成购买，谢谢惠顾!\n");
-		printf("本次购买一共花费%.2f,余额为%.2f\n",balance,consumer.balance_);
+		printf("本次购买一共花费%.2f元,余额为%.2f元\n",balance,consumer.balance_);
 		printf("本次购买获得了%.2f的积分，您的积分为%.2f\n",0.3*balance,consumer.score_);
 	}
 }
@@ -123,7 +124,7 @@ void BuyByScore(struct Consumer consumer)
 		printf("您的卡没有激活，请先进行激活操作！\n");        //是否激活 
 	}
 	
-	while(consumer.is_available_==1)
+    else
 	{
 		int what,which=1,number,flag,flag1,flag2;
 		float total=0,price,pri[9]={3.30,55.00,110.00,88.00,5.50,11.00,6600.00,55.00,7.70};
@@ -209,8 +210,7 @@ void BuyByScore(struct Consumer consumer)
 		else
 		{
 			printf("退出购买\n");
-		}
-		break;		
+		}	
 	}
 }
 
@@ -218,7 +218,8 @@ void MinusScore(struct Consumer consumer, float score)
 {
 	if(consumer.score_<score)
 	{
-		printf("购买无法完成,积分不足,消费来获取积分!\n");
+		printf("积分不足,消费来获取积分!\n");
+		printf("您的积分为%.2f,所需积分为%.2f\n",consumer.score_,score);
 	}
 	else
 	{
@@ -237,12 +238,14 @@ void ShowWindowCon(struct Consumer consumer){
         printf("*\n");
         printf("****************************\n");
         printf("*    Please choose operator: ");//选择操作数
-  //  }
 };
 
 int main(void){
     int n;
     Consumer consumer;//实例化某个消费者对象
+    consumer.balance_ =100 ;	//余额
+	consumer.score_ =0;	//积分
+	consumer.is_available_=1;	//激活状态
     while(1)
 	{
 		ShowWindowCon(consumer);
@@ -258,5 +261,3 @@ int main(void){
         }
     }
 }
-
-
