@@ -1,4 +1,4 @@
-﻿#ifndef DOFILE_H
+#ifndef DOFILE_H
 #define DOFILE_H
 #include"menu.h"
 #include<stdio.h>

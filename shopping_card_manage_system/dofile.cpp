@@ -1,4 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_DEPRECATE
+#pragma warning(disable:4996)
 #include"dofile.h"
 #include<string.h>
 //读取管理员文件
@@ -131,7 +133,6 @@ void ReadConsumer(struct Master& master, char path[100]) {
 		struct Consumer_Node* tmp = (struct Consumer_Node*)malloc(sizeof(struct Consumer_Node));	//建立第二个节点
 		while (fscanf(read_consumer, "%s", tem) != -1)	//挨个读取
 		{
-			printf("调试: %s\n", tem);
 			char info[7][19];	//0：卡号，1：姓名:2：密码，3：身份证，4：余额，5：积分，6：激活状态
 			int k = 0, times = 0;
 			for (int i = 0; i < strlen(tem); i++) {
@@ -188,7 +189,6 @@ int ToInt(char str[128]) {
 	return num;
 }
 float ToFloat(char str[128]) {
-	printf("测试：%s\n", str);
 	float num = 0;
 	int k = 0;
 	for (int i = 0; i < strlen(str); i++) {

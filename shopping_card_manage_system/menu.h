@@ -24,18 +24,24 @@ struct Apply_Node {
 
 
 int ShowWindowMenu();	//菜单窗口
-void MainOperator(int n);	//主操作页面
-bool CheckCon(int number, char password[6]);	//检查用户的卡号是否存在，若存在，检查密码是否正确
-bool CheckAdm(int account, char password[6]);	//检查管理员的账号是否存在，若存在，检查密码是否正确
+void MainOperator(struct Master& master, int n);	//主操作页面
+bool CheckCon(struct Master master, int number, char password[7]);	//检查用户的卡号是否存在，若存在，检查密码是否正确
+bool CheckAdm(struct Master master, int account, char password[7]);	//检查管理员的账号是否存在，若存在，检查密码是否正确
 
-struct Consumer BuildCon(int number);	//传入登录用户
-struct Administer BuildAdm(int account, struct Apply_Node* apply, struct Consumer_Node* consumer_);	//传入登录管理员
+struct Consumer BuildCon(struct Master master, int number);	//传入登录用户
+struct Administer BuildAdm(struct Master master, int account, struct Apply_Node* apply, struct Consumer_Node* consumer);	//传入登录管理员
 
 void AskCard(struct Apply_Node* apply);	//申请购物卡
 bool EnterAdm(struct Administer& administer, struct Apply_Node* apply);	//进入管理员登录函数，所有的操作都在该函数内实现
 bool EnterCon(struct Consumer& consumer);	//进入用户登录函数，所有的操作都在该函数内实现
 
-void UpdateAdm(bool judge, struct Administer& administer);	//更新结束后管理员信息
-void UpdateCon(bool judge, struct Consumer& consumer);		//更新结束后用户信息
+void UpdateAdm(struct Master&, bool judge, struct Administer& administer);	//更新结束后管理员信息
+void UpdateCon(struct Master&, bool judge, struct Consumer& consumer);		//更新结束后用户信息
+
+bool CheckPass(char number1[7], char number2[7]);	//判断密码是否正确 
+struct Consumer ToConsumer(struct Consumer_Node consumer_);//将Consumer_Node类型转化为Consumer类型 
+struct Administer ToAdminister(struct Administer_Node administer_);//将Administer_Node类型转化为Administer类型 
+void ToConsumerNode(struct Consumer_Node& consumer_, struct Consumer consumer);// 将Consumer类型的数据称传递给Consumer_Node 
+void ToAdministerNode(struct Administer_Node& administer_, struct Administer administer);//Administer类型的数据成员传递给Administer_Node
 
 #endif
