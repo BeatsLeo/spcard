@@ -1,13 +1,4 @@
-﻿  dofile.cpp
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(21,22): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(31,22): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(77,22): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(90,22): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(137,22): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(150,22): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(185,20): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(194,20): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(204,20): warning C4305: “初始化”: 从“double”到“float”截断
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(205,21): warning C4018: “<”: 有符号/无符号不匹配
-E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.cpp(207,16): warning C4305: “*=”: 从“double”到“float”截断
+﻿  consumer.cpp
+E:\BeatsLeo\spcard\shopping_card_manage_system\consumer.cpp(114,35): warning C4244: “+=”: 从“double”转换到“float”，可能丢失数据
+E:\BeatsLeo\spcard\shopping_card_manage_system\consumer.cpp(131,92): warning C4305: “初始化”: 从“double”到“float”截断
   shopping_card_manage_system.vcxproj -> E:\BeatsLeo\spcard\shopping_card_manage_system\Debug\shopping_card_manage_system.exe

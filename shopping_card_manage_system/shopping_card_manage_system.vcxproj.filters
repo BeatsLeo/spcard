@@ -35,5 +35,14 @@
     <ClCompile Include="dofile.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="consumer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="源.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
