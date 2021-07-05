@@ -232,13 +232,101 @@ void MinusScore(struct Consumer& consumer, float score)
 	}
 }
 
-
 bool ShowWindowCon(struct Consumer& consumer) {
-	printf("****************************\n");
-	printf("*\n");
-	printf("*    1.余额\n*    2.积分\n*    ");
-	printf("*\n");
-	printf("****************************\n");
-	printf("*    Please choose operator: ");//选择操作数
-	return true;
+	if (!(consumer.is_available_)) {
+		printf("您的账户未激活\n");
+		printf("****************************\n");
+		printf("*        　    　  　　  　　*\n");
+		printf("*    1.存款（非法）      　　*\n");
+		printf("*    2.存款交易（非法）      *\n");
+		printf("*    3.积分交易（非法）      *\n");
+		printf("*    4.报表                 *\n");
+		printf("*    5.修改密码（非法）      *\n");
+		printf("*    6.注销                 *\n");
+		printf("*    7.退出                 *\n");//操作
+		printf("*\n");
+		printf("****************************\n");
+		printf("    选择操作: ");
+	}//选择操作数
+	else {
+		printf("您的账户已激活\n");
+		printf("****************************\n");
+		printf("*                          *\n");
+		printf("*    1.存款                 *\n");
+		printf("*    2.存款交易             *\n");
+		printf("*    3.积分交易             *\n");
+		printf("*    4.报表                 *\n");
+		printf("*    5.修改密码             *\n");
+		printf("*    6.注销                 *\n");
+		printf("*    7.退出                 *\n");//操作
+		printf("*                           *\n");
+		printf("****************************\n");
+		printf("    选择操作: ");
+	}//选择操作数
+	int n;//n表示操作数
+	scanf("%d", &n);
+	switch (n)
+	{
+	case 1://存款
+		if (consumer.is_available_) {//如果用户已激活，则可以正常存款
+			Save(consumer);//money表示存的钱
+		}
+		else { printf("请先激活您的账户 !\n"); };//若未激活，则提示存款操作非法
+		break;
+	case 2://存款交易
+		if (consumer.is_available_) { BuyBySave(consumer); }//如果用户已激活，则可以正常交易
+		else { printf("请先激活您的账户 !\n"); };//若未激活，则提示交易操作非法
+		break;
+	case 3://积分交易
+		if (consumer.is_available_) { BuyByScore(consumer); }//如果用户已激活，则可以正常交易
+		else { printf("请先激活您的账户 !\n"); };//若未激活，则提示交易操作非法
+		break;
+	case 4://报表
+		ShowInfo(consumer);
+		break;
+	case 5://修改密码
+		ChangePsw(consumer);
+		// printf("%s\n",consumer.password_);
+		break;
+	case 6://注销
+		printf("注销成功 !");
+		return false;
+		break;
+	case 7://退出
+		printf("已退出 !\n");
+		return true;
+		break;
+	}
+};
+
+//存款函数
+void Save(struct Consumer& consumer) {
+	float money;//存的钱
+	printf("Please input your money: ");
+	scanf("%f", &money);
+	printf("You seccessfully save %.2f dollor !\n", money);
+	consumer.balance_ += money;
+};
+
+
+//报表函数
+void ShowInfo(struct Consumer consumer) {
+	printf("name: %s\n", consumer.name_);//姓名
+	printf("id: %s\n", consumer.id_);//身份证
+	printf("balance: %.2f\n", consumer.balance_);//余额
+	printf("number: %d\n", consumer.number_);//卡号
+	printf("score: %.2f\n", consumer.score_);//积分
+	if (consumer.is_available_) { printf("Your card is valid !\n"); }
+	else printf("Your card is invalid !\n");//是否激活
+};
+
+
+//修改密码函数
+void ChangePsw(struct Consumer& consumer) {
+	printf("New password: ");
+	for (int i = 0; i <= 6; i++) {
+		char ch;
+		ch = getchar();
+		consumer.password_[i] = ch;
+	}//修改密码
 };

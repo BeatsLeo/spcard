@@ -25,6 +25,7 @@
     <ClInclude Include="administer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="administer.cpp" />
     <ClCompile Include="dofile.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="test.cpp" />

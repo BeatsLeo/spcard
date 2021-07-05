@@ -20,11 +20,11 @@ struct Administer {
 };
 
 bool ShowWindowAdm(struct Administer& administer, struct Apply_Node* apply);	//菜单窗口
-void MakeCard(struct Apply_Node* card);	//制卡
-void CheckApply(struct Apply_Node* apply);		//检查申请信息，并审批申请信息
-void SendCard(struct Consumer_Node* card);		//发卡
-void ShowInfo();		//查看信息
-void ChangePsw();		//修改个人密码
+void MakeCard(struct Administer& administer, struct Apply_Node* card);	//制卡
+void CheckApply(struct Administer& administer, struct Apply_Node* apply);		//检查申请信息，并审批申请信息
+void SendCard(struct Administer& administer);		//发卡
+void ShowInfo(struct Administer& administer);		//查看信息
+void ChangePsw(struct Administer& administer);		//修改个人密码
 
 
 

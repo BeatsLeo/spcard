@@ -81,7 +81,8 @@ void MainOperator(struct Master& master, int n)
 	{
 	case 0:case 1:
 		int account;//输入账号 
-		char password[6]; //输入密码 
+		char password[7]; //输入密码 
+		password[6] = '\0';
 		int i;
 		while (1)
 		{
@@ -94,10 +95,12 @@ void MainOperator(struct Master& master, int n)
 				break;
 			}
 			printf("请输入你的密码\n");
+			while (getchar() != '\n');
 			for (i = 0; i < 6; i++)  //输入密码 
 			{
 				password[i] = getchar();
 			}
+			while (getchar() != '\n');
 			if (n == 0)//选择管理员登录 
 			{
 				if (!CheckAdm(master, account, password))//账号密码错误 
@@ -141,7 +144,7 @@ void MainOperator(struct Master& master, int n)
 
 
 
-bool CheckPass(char number1[7], char number2[7])//判断密码是否正确 
+bool CheckPass(char number1[6], char number2[6])//判断密码是否正确 
 {
 	for (int i = 0; i < 6; i++)
 	{
@@ -156,15 +159,16 @@ bool CheckPass(char number1[7], char number2[7])//判断密码是否正确
 
 bool CheckCon(struct Master master, int number, char password[7])
 {
-	while (master.consumer_)//当master.consumer_为空，即已遍历完链表后退出 
+	struct Consumer_Node* temp = master.consumer_->next_;
+	while (temp)//当master.consumer_为空，即已遍历完链表后退出 
 	{
-		if (master.consumer_->number_ == number)//匹配到账号 
+		if (temp->number_ == number)//匹配到账号 
 		{
-			return CheckPass(password, master.consumer_->password_);
+			return CheckPass(password, temp->password_);
 		}
 		else
 		{
-			master.consumer_ = master.consumer_->next_;//指针后移
+			temp = temp->next_;//指针后移
 		}
 	}
 	printf("该账号不存在\n");
@@ -173,15 +177,16 @@ bool CheckCon(struct Master master, int number, char password[7])
 
 bool CheckAdm(struct Master master, int account, char password[7])
 {
-	while (master.administer_)//当master.administer_为空，即已遍历完链表后退出 
+	struct Administer_Node* temp = master.administer_->next_;
+	while (temp)//当master.administer_为空，即已遍历完链表后退出 
 	{
-		if (master.administer_->account_ == account)//匹配到账号 
+		if (temp->account_ == account)//匹配到账号 
 		{
-			return CheckPass(password, master.administer_->password_);
+			return CheckPass(password, temp->password_);
 		}
 		else
 		{
-			master.administer_ = master.administer_->next_;//指针后移 
+			temp = temp->next_;//指针后移 
 		}
 	}
 	printf("该账号不存在\n");
@@ -227,8 +232,7 @@ struct Administer BuildAdm(struct Master master, int account, struct Apply_Node*
 
 bool EnterAdm(struct Administer& administer, struct Apply_Node* apply)
 {
-	//return ShowWindowAdm(administer, apply);
-	return true;
+	return ShowWindowAdm(administer, apply);
 }
 
 bool EnterCon(struct Consumer& consumer)
@@ -240,58 +244,42 @@ void UpdateAdm(struct Master& master, bool judge, struct Administer& administer)
 {
 	if (judge == 1)//正常退出 
 	{
-		bool sign = 0;
-		struct Administer_Node* temp = master.administer_;//创建临时指针 
+		struct Administer_Node* temp = master.administer_->next_;//创建临时指针 
 		while (temp)//当temp为空，即已遍历完链表后退出 
 		{
 			if (temp->account_ == administer.account_)//匹配到账号 
 			{
-				sign = 1;
-				break;
+				ToAdministerNode(*(temp), administer);
+				return;
 			}
 			else
 			{
 				temp = temp->next_;//指针后移 
 			}
 		}
-		if (sign == 1)//匹配到账号 
-		{
-			ToAdministerNode(*(temp), administer);
-		}
-		else//未匹配到账号 
-		{
-			printf("ERROR\n");
-			return;
-		}
+		printf("ERROR\n");
+		return;
 	}
 	else//注销账号 
 	{
-		bool sign = 0;
-		struct Administer_Node* temp = master.administer_;//创建临时指针 
+		struct Administer_Node* temp = master.administer_->next_;//创建临时指针 
 		while (temp->next_)//当temp->next_为空，即已遍历完链表后退出 
 		{
 			if (temp->next_->account_ == administer.account_)//匹配到账号(temp下一个指针的账号匹配） 
 			{
-				sign = 1;
-				break;
+				struct Administer_Node* temp2 = temp->next_;
+				temp->next_ = temp2->next_;
+				free(temp2);
+				printf("您的账号注销成功！\n");
+				return;
 			}
 			else
 			{
 				temp = temp->next_;//指针后移 
 			}
 		}
-		if (sign == 1)//匹配到账号 
-		{
-			struct Administer_Node* temp2 = temp->next_;
-			temp->next_ = temp2->next_;
-			free(temp2);
-			printf("您的账号注销成功！\n");
-		}
-		else//未匹配到账号 
-		{
-			printf("ERROR\n");
-			return;
-		}
+		printf("ERROR\n");
+		return;
 	}
 }
 
@@ -299,58 +287,42 @@ void UpdateCon(struct Master& master, bool judge, struct Consumer& consumer)
 {
 	if (judge == 1)//正常退出 
 	{
-		bool sign = 0;
-		struct Consumer_Node* temp = master.consumer_;//创建临时指针 
+		struct Consumer_Node* temp = master.consumer_->next_;//创建临时指针 
 		while (temp)//当temp为空，即已遍历完链表后退出 
 		{
 			if (temp->number_ == consumer.number_)//匹配到账号 
 			{
-				sign = 1;
-				break;
+				ToConsumerNode(*(temp), consumer);
+				return;
 			}
 			else
 			{
 				temp = temp->next_;//指针后移 
 			}
 		}
-		if (sign == 1)//匹配到账号 
-		{
-			ToConsumerNode(*(temp), consumer);
-		}
-		else//未匹配到账号 
-		{
-			printf("ERROR\n");
-			return;
-		}
+		printf("ERROR\n");
+		return;
 	}
 	else//注销账号 
 	{
-		bool sign = 0;
-		struct Consumer_Node* temp = master.consumer_;//创建临时指针 
+		struct Consumer_Node* temp = master.consumer_->next_;//创建临时指针 
 		while (temp->next_)//当temp->next_为空，即已遍历完链表后退出 
 		{
 			if (temp->next_->number_ == consumer.number_)//匹配到账号(temp下一个指针的账号匹配） 
 			{
-				sign = 1;
-				break;
+				struct Consumer_Node* temp2 = temp->next_;
+				temp->next_ = temp2->next_;
+				free(temp2);
+				printf("您的账号注销成功！\n");
+				return;
 			}
 			else
 			{
 				temp = temp->next_;//指针后移 
 			}
 		}
-		if (sign == 1)//匹配到账号 
-		{
-			struct Consumer_Node* temp2 = temp->next_;
-			temp->next_ = temp2->next_;
-			free(temp2);
-			printf("您的账号注销成功！\n");
-		}
-		else//未匹配到账号 
-		{
-			printf("ERROR\n");
-			return;
-		}
+		printf("ERROR\n");
+		return;
 	}
 }
 
@@ -371,7 +343,7 @@ struct Administer ToAdminister(struct Administer_Node administer_)
 {
 	Administer administer;
 	administer.account_ = administer_.account_;	//账号
-	administer.password_[7] = administer_.password_[7];	//密码
+	administer.password_[6] = administer_.password_[6];	//密码
 	administer.consumer_ = administer_.consumer_;	//消费者链表
 	return administer;
 }
