@@ -5,7 +5,7 @@
 //管理员的信息链表
 struct Administer_Node {
 	int account_;	//账号
-	char password_[6];	//密码
+	char password_[7];	//密码
 	struct Consumer_Node* consumer_;	//消费者链表
 
 	struct Administer_Node* next_ = NULL;	//下一个节点位置

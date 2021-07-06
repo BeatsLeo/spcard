@@ -1,6 +1,16 @@
-﻿  menu.cpp
+﻿  administer.cpp
 E:\BeatsLeo\spcard\shopping_card_manage_system\dofile.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-E:\BeatsLeo\spcard\shopping_card_manage_system\menu.cpp(55,3): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\BeatsLeo\spcard\shopping_card_manage_system\menu.cpp(59,4): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\BeatsLeo\spcard\shopping_card_manage_system\menu.cpp(92,4): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(34,3): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(64,20): warning C4018: “<”: 有符号/无符号不匹配
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(69,20): warning C4018: “<”: 有符号/无符号不匹配
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(108,4): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(128,4): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(94,6): warning C4101: “flag”: 未引用的局部变量
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(143,2): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(187,2): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(237,20): warning C4018: “<”: 有符号/无符号不匹配
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(209,2): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(212,2): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(217,3): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\BeatsLeo\spcard\shopping_card_manage_system\administer.cpp(227,3): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   shopping_card_manage_system.vcxproj -> E:\BeatsLeo\spcard\shopping_card_manage_system\Debug\shopping_card_manage_system.exe

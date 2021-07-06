@@ -3,12 +3,63 @@
 #pragma warning(disable:4996)
 #include"dofile.h"
 #include<string.h>
+
+//读取root信息
+void ReadMaster(struct Master& master, char path[100]) {
+	FILE* readmaster = NULL;
+	fopen_s(&readmaster, path, "r");	//只读打开文件
+	if (readmaster == NULL) {
+		printf("root文件不存在！\n");		//错误检测
+		fopen_s(&readmaster, path, "w+");
+		printf("已自动为您创建root.config文件\n");
+		system("pause");
+		char n[7];
+		while (1) {
+			printf("请输入root密码（六位数字）：");
+			scanf("%s", n);
+			if (strlen(n) != 6) {
+				printf("请输入正确的位数！\n");
+			}
+			else {
+				n[6] = '\0';
+				break;
+			}
+		}
+		int root_p = ToInt(n);
+		master.root_ = root_p;
+		fprintf(readmaster, "%d", master.root_);
+		system("cls");
+		printf("root密码输入成功！\n");
+	}
+	else {
+		int root;
+		fscanf(readmaster, "%d", &root);
+		master.root_ = root;
+	}
+	fclose(readmaster);
+}
+
+//写入root文件
+void WriteMaster(struct Master& master, char path[100]) {
+	FILE* write_master = NULL;
+	fopen_s(&write_master, path, "w");
+	fprintf(write_master, "%d", master.root_);
+	fclose(write_master);
+}
+
 //读取管理员文件
 void ReadAdm(struct Master& master, char path[100]) {
 	FILE* read_adm = NULL;
 	fopen_s(&read_adm, path, "r");	//只读打开文件
 	if (read_adm == NULL) {
-		printf("该文件不存在！");		//错误检测
+		printf("管理员文件不存在！\n");		//错误检测
+		fopen_s(&read_adm, path, "w+");
+		printf("已自动为您创建administer.csv文件\n");
+		fprintf(read_adm, "%s", "账号,密码\n");
+		printf("请自行注册管理员账号！\n");
+		system("pause");
+		master.administer_ = (struct Administer_Node*)malloc(sizeof(struct Administer_Node));	//建立头节点
+		master.administer_->next_ = NULL;
 	}
 	else {
 		char tem[128];
@@ -51,7 +102,7 @@ void WriteAdm(struct Master& master, char path[100]) {
 	FILE* write_adm = NULL;
 	fopen_s(&write_adm, path, "w");	//截断打开文件
 	if (write_adm == NULL) {
-		printf("该文件不存在！");		//错误检测
+		printf("该文件不存在！\n");		//错误检测
 	}
 	fprintf(write_adm, "%s", "账号,密码\n");
 	Administer_Node* iter = master.administer_->next_;
@@ -64,7 +115,13 @@ void ReadApply(struct Master& master, char path[100]) {
 	FILE* read_apply = NULL;
 	fopen_s(&read_apply, path, "r");	//只读打开文件
 	if (read_apply == NULL) {
-		printf("该文件不存在！");		//错误检测
+		printf("购物卡文件不存在！\n");		//错误检测
+		fopen_s(&read_apply, path, "w+");
+		printf("已自动为您创建apply.csv文件\n");
+		fprintf(read_apply, "%s", "卡号,姓名,密码,身份证\n");
+		master.apply_ = (struct Apply_Node*)malloc(sizeof(struct Apply_Node));	//建立头节点
+		master.apply_->next_ = NULL;
+		system("pause");
 	}
 	else {
 		char tem[128];
@@ -110,7 +167,7 @@ void WriteApply(struct Master& master, char path[100]) {
 	FILE* write_apply = NULL;
 	fopen_s(&write_apply, path, "w");	//截断打开文件
 	if (write_apply == NULL) {
-		printf("该文件不存在！");		//错误检测
+		printf("该文件不存在！\n");		//错误检测
 	}
 	fprintf(write_apply, "%s", "卡号,姓名,密码,身份证\n");
 	Apply_Node* iter = master.apply_->next_;
@@ -123,7 +180,14 @@ void ReadConsumer(struct Master& master, char path[100]) {
 	FILE* read_consumer = NULL;
 	fopen_s(&read_consumer, path, "r");	//只读打开文件
 	if (read_consumer == NULL) {
-		printf("该文件不存在！");		//错误检测
+		printf("用户文件不存在！\n");		//错误检测
+		fopen_s(&read_consumer, path, "w+");
+		printf("已自动为您创建consumer.csv文件\n");
+		fprintf(read_consumer, "%s", "卡号,姓名,密码,身份证,余额,积分,激活状态\n");
+		printf("注册用户请选择申请购物卡！\n");
+		master.consumer_ = (struct Consumer_Node*)malloc(sizeof(struct Consumer_Node));	//建立头节点
+		master.consumer_->next_ = NULL;
+		system("pause");
 	}
 	else {
 		char tem[128];
@@ -172,7 +236,7 @@ void WriteConsumer(struct Master& master, char path[100]) {
 	FILE* write_consumer = NULL;
 	fopen_s(&write_consumer, path, "w");	//截断打开文件
 	if (write_consumer == NULL) {
-		printf("该文件不存在！");		//错误检测
+		printf("该文件不存在！\n");		//错误检测
 	}
 	fprintf(write_consumer, "%s", "卡号,姓名,密码,身份证,余额,积分,激活状态\n");
 	Consumer_Node* iter = master.consumer_->next_;

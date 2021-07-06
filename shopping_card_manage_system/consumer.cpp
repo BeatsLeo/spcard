@@ -1,10 +1,12 @@
 ﻿#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
 #include"consumer.h"
 #pragma warning(disable:4996)
 
 void BuyBySave(struct Consumer& consumer)
 {
-
+	system("cls");
 	if (consumer.is_available_ == 0)
 	{
 		printf("您的卡没有激活，请先进行激活操作！\n");        //是否激活 
@@ -103,6 +105,7 @@ void BuyBySave(struct Consumer& consumer)
 
 void MinusSave(struct Consumer& consumer, float balance)
 {
+	system("cls");
 	if (consumer.balance_ < balance)
 	{
 		printf("购买无法完成，余额不足，请进行充值!\n");
@@ -120,6 +123,7 @@ void MinusSave(struct Consumer& consumer, float balance)
 
 void BuyByScore(struct Consumer& consumer)
 {
+	system("cls");
 	if (consumer.is_available_ == 0)
 	{
 		printf("您的卡没有激活，请先进行激活操作！\n");        //是否激活 
@@ -218,6 +222,7 @@ void BuyByScore(struct Consumer& consumer)
 
 void MinusScore(struct Consumer& consumer, float score)
 {
+	system("cls");
 	if (consumer.score_ < score)
 	{
 		printf("积分不足,消费来获取积分!\n");
@@ -233,100 +238,137 @@ void MinusScore(struct Consumer& consumer, float score)
 }
 
 bool ShowWindowCon(struct Consumer& consumer) {
-	if (!(consumer.is_available_)) {
-		printf("您的账户未激活\n");
-		printf("****************************\n");
-		printf("*        　    　  　　  　　*\n");
-		printf("*    1.存款（非法）      　　*\n");
-		printf("*    2.存款交易（非法）      *\n");
-		printf("*    3.积分交易（非法）      *\n");
-		printf("*    4.报表                 *\n");
-		printf("*    5.修改密码（非法）      *\n");
-		printf("*    6.注销                 *\n");
-		printf("*    7.退出                 *\n");//操作
-		printf("*\n");
-		printf("****************************\n");
-		printf("    选择操作: ");
-	}//选择操作数
-	else {
-		printf("您的账户已激活\n");
-		printf("****************************\n");
-		printf("*                          *\n");
-		printf("*    1.存款                 *\n");
-		printf("*    2.存款交易             *\n");
-		printf("*    3.积分交易             *\n");
-		printf("*    4.报表                 *\n");
-		printf("*    5.修改密码             *\n");
-		printf("*    6.注销                 *\n");
-		printf("*    7.退出                 *\n");//操作
-		printf("*                           *\n");
-		printf("****************************\n");
-		printf("    选择操作: ");
-	}//选择操作数
-	int n;//n表示操作数
-	scanf("%d", &n);
-	switch (n)
-	{
-	case 1://存款
-		if (consumer.is_available_) {//如果用户已激活，则可以正常存款
-			Save(consumer);//money表示存的钱
+	while (1) {
+		if (!(consumer.is_available_)) {
+			printf("您的账户未激活\n");
+			printf("****************************\n");
+			printf("*        　    　  　　  　　*\n");
+			printf("*    1.存款（非法）      　　*\n");
+			printf("*    2.存款交易（非法）      *\n");
+			printf("*    3.积分交易（非法）      *\n");
+			printf("*    4.报表                 *\n");
+			printf("*    5.修改密码             *\n");
+			printf("*    6.注销                 *\n");
+			printf("*    7.退出                 *\n");//操作
+			printf("*\n");
+			printf("****************************\n");
+			printf("    选择操作: ");
+		}//选择操作数
+		else {
+			printf("您的账户已激活\n");
+			printf("****************************\n");
+			printf("*                          *\n");
+			printf("*    1.存款                 *\n");
+			printf("*    2.存款交易             *\n");
+			printf("*    3.积分交易             *\n");
+			printf("*    4.报表                 *\n");
+			printf("*    5.修改密码             *\n");
+			printf("*    6.注销                 *\n");
+			printf("*    7.退出                 *\n");//操作
+			printf("*                           *\n");
+			printf("****************************\n");
+			printf("    选择操作: ");
+		}//选择操作数
+		int n;//n表示操作数
+		scanf("%d", &n);
+		switch (n)
+		{
+		case 1://存款
+			if (consumer.is_available_) {//如果用户已激活，则可以正常存款
+				Save(consumer);//money表示存的钱
+			}
+			else { printf("请先激活您的账户 !\n"); };//若未激活，则提示存款操作非法
+			break;
+		case 2://存款交易
+			if (consumer.is_available_) { BuyBySave(consumer); }//如果用户已激活，则可以正常交易
+			else { printf("请先激活您的账户 !\n"); };//若未激活，则提示交易操作非法
+			break;
+		case 3://积分交易
+			if (consumer.is_available_) { BuyByScore(consumer); }//如果用户已激活，则可以正常交易
+			else { printf("请先激活您的账户 !\n"); };//若未激活，则提示交易操作非法
+			break;
+		case 4://报表
+			ShowInfo(consumer);
+			break;
+		case 5://修改密码
+			ChangePsw(consumer);
+			// printf("%s\n",consumer.password_);
+			break;
+		case 6://注销
+			system("cls");
+			printf("注销成功 !");
+			return false;
+			break;
+		case 7://退出
+			system("cls");
+			printf("已退出 !\n");
+			return true;
+			break;
 		}
-		else { printf("请先激活您的账户 !\n"); };//若未激活，则提示存款操作非法
-		break;
-	case 2://存款交易
-		if (consumer.is_available_) { BuyBySave(consumer); }//如果用户已激活，则可以正常交易
-		else { printf("请先激活您的账户 !\n"); };//若未激活，则提示交易操作非法
-		break;
-	case 3://积分交易
-		if (consumer.is_available_) { BuyByScore(consumer); }//如果用户已激活，则可以正常交易
-		else { printf("请先激活您的账户 !\n"); };//若未激活，则提示交易操作非法
-		break;
-	case 4://报表
-		ShowInfo(consumer);
-		break;
-	case 5://修改密码
-		ChangePsw(consumer);
-		// printf("%s\n",consumer.password_);
-		break;
-	case 6://注销
-		printf("注销成功 !");
-		return false;
-		break;
-	case 7://退出
-		printf("已退出 !\n");
-		return true;
-		break;
 	}
 };
 
 //存款函数
 void Save(struct Consumer& consumer) {
 	float money;//存的钱
-	printf("Please input your money: ");
+	printf("请输入您要存入的钱: ");
 	scanf("%f", &money);
-	printf("You seccessfully save %.2f dollor !\n", money);
+	system("cls");
+	printf("您已成功存入 %.2f 元 !\n", money);
 	consumer.balance_ += money;
 };
 
 
 //报表函数
 void ShowInfo(struct Consumer consumer) {
-	printf("name: %s\n", consumer.name_);//姓名
-	printf("id: %s\n", consumer.id_);//身份证
-	printf("balance: %.2f\n", consumer.balance_);//余额
-	printf("number: %d\n", consumer.number_);//卡号
-	printf("score: %.2f\n", consumer.score_);//积分
-	if (consumer.is_available_) { printf("Your card is valid !\n"); }
-	else printf("Your card is invalid !\n");//是否激活
+	printf("卡号: %d\n", consumer.number_);//卡号
+	printf("姓名: %s\n", consumer.name_);//姓名
+	printf("身份证: %s\n", consumer.id_);//身份证
+	printf("余额: %.2f\n", consumer.balance_);//余额
+	printf("积分: %.2f\n", consumer.score_);//积分
+	if (consumer.is_available_) { printf("您的账户已激活！\n"); }
+	else printf("您的账户未激活!\n");//是否激活
+	system("pause");
+	system("cls");
 };
 
 
 //修改密码函数
 void ChangePsw(struct Consumer& consumer) {
-	printf("New password: ");
-	for (int i = 0; i <= 6; i++) {
-		char ch;
-		ch = getchar();
-		consumer.password_[i] = ch;
-	}//修改密码
+	while (1) {
+		char password1[7];
+		while (1) {
+			system("cls");
+			printf("请输入您的新密码（六位）: ");
+			scanf("%s", password1);
+			if (strlen(password1) != 6) {
+				printf("请输入正确的位数（六位）！\n");
+				system("pause");
+			}
+			else break;
+		}
+		password1[6] = '\0';
+		printf("请在输入一次进行确认：");
+		char password2[7];
+		scanf("%s", password2);
+		int flag = 1;
+		for (int i = 0; i < 6; i++) {
+			if (password1[i] != password2[i]) {
+				printf("两次输入密码不一致！\n");
+				system("pause");
+				flag = 0;
+				break;
+			}
+		}
+		password1[6] = '\0';
+		if (flag == 1) {
+			for (int i = 0; i < 6; i++) {
+				consumer.password_[i] = password1[i];
+			}
+			consumer.password_[6] = '\0';
+			system("cls");
+			printf("密码修改成功！\n");
+			return;
+		}
+	}
 };

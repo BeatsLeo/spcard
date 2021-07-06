@@ -19,14 +19,15 @@ Apply_Node* head_Apply;            //头节点
 bool ShowWindowAdm(struct Administer& administer, struct Apply_Node* apply) {
 	while (true)
 	{
-		printf("尊敬的管理员,欢迎使用购物卡管理系统!n");
-		printf("  *********************\n");
-		printf("**  购物卡管理系统  **\n");
-		printf("**  审批并制卡---1  **\n");
-		printf("**  发卡---2  **\n");
-		printf("**  查看信息---3  **\n");
-		printf("**  修改密码---4  **\n");
-		printf("**  退出管理系统---0  **\n");
+		printf("尊敬的管理员,欢迎使用购物卡管理系统!\n");
+		printf("**************************\n");
+		printf("**  购物卡管理系统     　**\n");
+		printf("**  审批并制卡---1       **\n");
+		printf("**  发卡---2         　　**\n");
+		printf("**  查看信息---3      　 **\n");
+		printf("**  修改密码---4       　**\n");
+		printf("**  退出管理系统---0     **\n");
+		printf("**************************\n");
 
 		int choice = 0;
 		printf("请输入对应的功能键(数字):  ");
@@ -46,6 +47,7 @@ bool ShowWindowAdm(struct Administer& administer, struct Apply_Node* apply) {
 			ChangePsw(administer);
 			break;
 		case 0:
+			system("cls");
 			return true;
 		default:
 			printf("请输入正确的选择！\n");
@@ -69,33 +71,33 @@ void MakeCard(struct Administer& administer, Apply_Node* card) {                
 		f = i;
 	}
 	s->password_[f + 1] = '\0';
-	for (int i = 0; i < strlen(card->id_); i++) {
+	for (int i = 0; i < 18; i++) {
 		s->id_[i] = card->id_[i];
 		f = i;
 	}
-	s->id_[f + 1] = '\0';
+	s->id_[18] = '\0';
 	s->is_available_ = false;
 	s->score_ = 0;
 	s->balance_ = 0;
 
 	s->next_ = administer.consumer_->next_;
 	administer.consumer_->next_ = s;
+	system("cls");
 	printf("制卡成功！！！\n");
 
 }
 
 void CheckApply(struct Administer& administer, Apply_Node* apply) {                                //审批
 	system("cls");
-	Apply_Node* p = (Apply_Node*)malloc(sizeof(Apply_Node));
+	Apply_Node* p = apply;
 	int number;
 	int flag;
-	p = apply->next_;
 	if (apply->next_ != NULL) {
-		while (p != NULL) {
+		while (p->next_ != NULL) {
 			printf("正在申请的购物卡信息:\n");
-			printf("卡号:%d\n", p->number_);
-			printf("姓名:%s\n", p->name_);
-			printf("身份证:%s\n", p->id_);
+			printf("卡号:%d\n", p->next_->number_);
+			printf("姓名:%s\n", p->next_->name_);
+			printf("身份证:%s\n", p->next_->id_);
 			printf("\n");
 
 			p = p->next_;
@@ -105,13 +107,22 @@ void CheckApply(struct Administer& administer, Apply_Node* apply) {             
 			printf("输入批准申请的卡号:");
 			scanf("%d", &number);
 
-			p = apply->next_;
-			while (1) {
-				if (p->number_ == number) {
-					MakeCard(administer, p);
+			p = apply;
+			int flag = 0;
+			while (p->next_ != NULL) {
+				if (p->next_->number_ == number) {
+					MakeCard(administer, p->next_);
+					Apply_Node* tem = p;
+					p->next_ = p->next_->next_;
+					//free(tem);
+					flag = 1;
 					break;
 				}
 				p = p->next_;
+			}
+			if (p->next_ == NULL && flag == 0) {
+				system("cls");
+				printf("该卡号不存在！");
 			}
 			printf("是否继续操作(是(1)/否(0)):");
 			scanf("%d", &flag);
@@ -121,13 +132,13 @@ void CheckApply(struct Administer& administer, Apply_Node* apply) {             
 		}
 	}
 
-	else if (apply->next_ = NULL) {
+	else {
 		printf("无正在申请的购物卡\n");
 	}
 }
 
 void SendCard(Administer& administer) {                          //发卡
-	printf("请输入需要发卡的卡号");
+	printf("请输入需要发卡的卡号:");
 	int num;
 	scanf("%d", &num);
 	Consumer_Node* card = administer.consumer_;
@@ -135,9 +146,12 @@ void SendCard(Administer& administer) {                          //发卡
 		if (card->next_->number_ == num) {
 			card->next_->is_available_ = true;
 			system("cls");
+			printf("发卡成功！\n");
 			return;
 		}
+		card = card->next_;
 	}
+	system("cls");
 	printf("该卡号不存在！\n");
 	return;
 }
@@ -145,6 +159,9 @@ void SendCard(Administer& administer) {                          //发卡
 void ShowInfo(struct Administer& administer) {
 	system("cls");
 	Consumer_Node* s = administer.consumer_->next_;
+	if (s == NULL) {
+		printf("当前无任何用户！\n");
+	}
 	while (s != NULL) {
 		printf("卡号:%d\n", s->number_);
 		printf("姓名:%s\n", s->name_);
@@ -184,36 +201,55 @@ void ChangePsw(struct Administer& administer) {
 
 void AskCard(struct Apply_Node* apply) {        //申请购物卡
 	int number;
-	char name[10];
-	char password[6];
-	char id[18];
+	char name[11];
+	char password[7];
+	char id[19];
+	system("cls");
 	printf("请输入卡号:");
 	scanf("%d", &number);
 
 	printf("输入姓名:");
 	scanf("%s", name);
 
-	printf("请输入密码:");
-	scanf("%s", password);
+	while (true)
+	{
+		printf("请输入六位数密码:");
+		scanf("%s", password);
+		if (strlen(password) != 6) {
+			printf("请输入正确的位数！");
+		}
+		else break;
+	}
 
-	printf("请输入身份证:");
-	scanf("%s", id);
+	while (true)
+	{
+		printf("请输入十八位身份证:");
+		scanf("%s", id);
+		if (strlen(id) != 18) {
+			printf("请输入正确的位数！");
+		}
+		else break;
+	}
 
 	Apply_Node* p = (Apply_Node*)malloc(sizeof(Apply_Node));
 	p->number_ = number;
+	int f = 0;
 	for (int i = 0; i < strlen(name); i++)
 	{
 		p->name_[i] = name[i];
+		f = i;
 	}
-	for (int i = 0; i < strlen(password); i++)
+	p->name_[f + 1] = '\0';
+	for (int i = 0; i < 6; i++)
 	{
 		p->password_[i] = password[i];
 	}
-	for (int i = 0; i < strlen(id); i++)
+	p->password_[6] = '\0';
+	for (int i = 0; i < 18; i++)
 	{
 		p->id_[i] = id[i];
 	}
-
+	p->id_[18] = '\0';
 
 	p->next_ = apply->next_;
 	apply->next_ = p;

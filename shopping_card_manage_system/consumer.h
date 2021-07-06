@@ -7,11 +7,11 @@ struct Consumer_Node {
 	char name_[11];	//姓名
 	char password_[7];	//密码
 	char id_[19];	//身份证
-	float balance_ = 0;	//余额
-	float score_ = 0;	//积分
+	float balance_;	//余额
+	float score_;	//积分
 	bool is_available_;	//激活状态
 
-	struct Consumer_Node* next_ = NULL;	//下一个指针
+	struct Consumer_Node* next_;	//下一个指针
 };
 
 
@@ -21,8 +21,8 @@ struct Consumer {
 	char name_[11];	//姓名
 	char password_[7];	//密码
 	char id_[19];	//身份证
-	float balance_ = 0;	//余额
-	float score_ = 0;	//积分
+	float balance_;	//余额
+	float score_;	//积分
 	bool is_available_;	//激活状态
 };
 

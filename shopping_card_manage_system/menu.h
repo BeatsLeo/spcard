@@ -9,7 +9,8 @@ struct Master {
 	struct Administer_Node* administer_;	//管理员链表
 	struct Consumer_Node* consumer_;	//消费者链表
 	struct Apply_Node* apply_;			//购物卡申请信息链表
-	char path[100];				//文件路径	
+	char path_[100];				//文件路径	
+	int root_;						//root密码
 };
 
 //购物卡申请信息
@@ -39,6 +40,10 @@ void UpdateAdm(struct Master&, bool judge, struct Administer& administer);	//更
 void UpdateCon(struct Master&, bool judge, struct Consumer& consumer);		//更新结束后用户信息
 
 bool CheckPass(char number1[7], char number2[7]);	//判断密码是否正确 
+
+void AdmSign(struct Master&);	//管理员注册
+
+
 struct Consumer ToConsumer(struct Consumer_Node consumer_);//将Consumer_Node类型转化为Consumer类型 
 struct Administer ToAdminister(struct Administer_Node administer_);//将Administer_Node类型转化为Administer类型 
 void ToConsumerNode(struct Consumer_Node& consumer_, struct Consumer consumer);// 将Consumer类型的数据称传递给Consumer_Node 
